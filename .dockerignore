@@ -1,0 +1,8 @@
+Pipfile*
+data/db.sqlite3
+.git
+.gitignore
+.idea
+__pycache__
+Dockerfile
+.dockerignore

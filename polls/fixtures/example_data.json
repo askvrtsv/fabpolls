@@ -1,0 +1,42 @@
+[
+  {
+    "model": "accounts.account",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$150000$6YP8WGhV0nHi$w/o0YUD0x8gWc9VyZ25s3sFJfUvYeLuxFaKosGizIdE=",
+      "last_login": null,
+      "email": "admin@example.com",
+      "username": "admin",
+      "is_active": true,
+      "is_admin": true
+    }
+  },
+  {
+    "model": "accounts.account",
+    "pk": 2,
+    "fields": {
+      "password": "pbkdf2_sha256$150000$1XZrPOfycSie$aqVw5RlitO132+OU8m5poieGOZzWxOzEQJsyay+aRC4=",
+      "last_login": null,
+      "email": "user@example.com",
+      "username": "user",
+      "is_active": true,
+      "is_admin": false
+    }
+  },
+  {
+    "model": "authtoken.token",
+    "pk": "5f27aa6f47be10947c3e9f711a98ee18eedb6199",
+    "fields": {
+      "user": 2,
+      "created": "2020-09-22T12:51:13.660Z"
+    }
+  },
+  {
+    "model": "authtoken.token",
+    "pk": "96b9540385351a64d6ae52ae3d504994ced52d9c",
+    "fields": {
+      "user": 1,
+      "created": "2020-09-22T12:50:54.579Z"
+    }
+  }
+]

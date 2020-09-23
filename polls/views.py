@@ -133,26 +133,30 @@ def poll_pass_view(request, pk):
 
 
 @api_view(['GET'])
-def poll_results_view(request, pk):
+def poll_results_view(request):
     """Результаты опроса."""
+    search_filter = {}
+    # либо идентификатор анонимного пользователя,
+    # либо идентификатор пользователя
     try:
-        poll = get_published_polls().get(pk=pk)
-    except Poll.DoesNotExist:
-        raise Http404
-    poll_user = get_poll_user(request)
-    if not poll_user:
+        search_filter['auid'] = int(request.GET['auid'])
+    except (KeyError, ValueError):
+        try:
+            search_filter['user_id'] = int(request.GET['user'])
+        except (KeyError, ValueError):
+            pass
+    if not search_filter:
         message = 'не указан пользователь'
         return Response(message, status=status.HTTP_400_BAD_REQUEST)
     try:
-        passed_poll = (
-            poll.passed_polls
-            .filter(**poll_user)
-            .prefetch_related(
-                'answers', 'answers__question', 'answers__choice')
-            .first())
+        passed_polls = (
+            PassedPoll.objects
+                .filter(**search_filter)
+                .prefetch_related(
+                    'answers', 'answers__question', 'answers__choice'))
     except PassedPoll.DoesNotExist:
         raise Http404
-    serializer = PassedPollSerializer(passed_poll)
+    serializer = PassedPollSerializer(passed_polls, many=True)
     return Response(serializer.data)
 
 
